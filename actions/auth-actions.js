@@ -1,10 +1,11 @@
 "use server";
+import "server-only";
 
 import { AuthError } from "next-auth";
 import { signIn } from "@/auth";
 import { createUser } from "@/lib/auth-db";
-import { signInSchema } from "@/lib/zod";
 import { hashUserPassword } from "@/lib/hash";
+import { signInSchema } from "@/lib/zod";
 
 export async function loginServerAction(mode, prevState, formData) {
 	const email = formData.get("email");
@@ -15,7 +16,6 @@ export async function loginServerAction(mode, prevState, formData) {
 	};
 
 	const parsed = await signInSchema.safeParseAsync(values);
-	console.info("===p", parsed);
 
 	if (!parsed.success) {
 		return {

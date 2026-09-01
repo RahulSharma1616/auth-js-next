@@ -43,6 +43,7 @@ export default function AuthForm({ mode }) {
 
 			<ul className="form-errors">
 				{formState.errors?.map((err, ind) => (
+					// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
 					<li key={ind}>{err.message}</li>
 				))}
 			</ul>

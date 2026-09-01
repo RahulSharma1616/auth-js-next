@@ -1,4 +1,5 @@
-import { signOut } from "@/auth";
+import { auth, signOut } from "@/auth";
+import AdminButton from "@/components/admin-button";
 import "../globals.css";
 
 export const metadata = {
@@ -6,11 +7,17 @@ export const metadata = {
 	description: "Next.js Authentication",
 };
 
-export default function AuthRootLayout({ children }) {
+export default async function AuthRootLayout({ children }) {
+	const session = await auth();
+
+	const showAdmin = session?.user?.role === "admin";
+
 	return (
 		<>
 			<header className="auth-header">
 				<p>Welcome back!</p>
+
+				{showAdmin && <AdminButton />}
 				<form
 					action={async () => {
 						"use server";
